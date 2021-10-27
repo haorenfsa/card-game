@@ -1,6 +1,18 @@
 package pkg
 
+import (
+	"math/rand"
+	"sort"
+	"time"
+)
+
+type StackInterface interface {
+	// shuffle the stack of cards into random order
+	Shuffle()
+}
+
 // Stack card stack
+// implements sort.Interface for shuffle
 type Stack struct {
 	Cards    []*Card
 	CardsNum int
@@ -14,14 +26,33 @@ func NewStack(deckNum int) *Stack {
 		return &Stack{Cards: make([]*Card, 0)}
 	}
 	var cards = []*Card{}
-	num := 0
 	for i := 0; i < deckNum; i++ {
 		deck := NewDeck()
 		cards = append(cards, deck.Cards...)
-		num += ONE_DECK_CARDS_NUM
 	}
 	return &Stack{
-		Cards:    cards,
-		CardsNum: num,
+		Cards: cards,
 	}
+}
+
+func init() {
+	// for shuffle
+	// rand.NewSource()
+	rand.Seed(time.Now().Unix())
+}
+
+func (s *Stack) Shuffle() {
+	sort.Sort(s)
+}
+
+func (s *Stack) Len() int {
+	return len(s.Cards)
+}
+
+func (s *Stack) Less(i, j int) bool {
+	return rand.Int()%2 == 0
+}
+
+func (s *Stack) Swap(i, j int) {
+	s.Cards[i], s.Cards[j] = s.Cards[j], s.Cards[i]
 }

@@ -18,17 +18,21 @@ func TestNewStackPanic(t *testing.T) {
 func TestNewStack(t *testing.T) {
 	ret := NewStack(0)
 	assert.NotNil(t, ret.Cards)
-	assert.Zero(t, ret.CardsNum)
 }
 
 func TestNewStack1Deck(t *testing.T) {
 	ret := NewStack(1)
 	assert.Len(t, ret.Cards, ONE_DECK_CARDS_NUM)
-	assert.Equal(t, ret.CardsNum, ONE_DECK_CARDS_NUM)
 }
 
 func TestNewStack2Deck(t *testing.T) {
 	ret := NewStack(2)
 	assert.Len(t, ret.Cards, ONE_DECK_CARDS_NUM*2)
-	assert.Equal(t, ret.CardsNum, ONE_DECK_CARDS_NUM*2)
+}
+
+func TestStackShuffle(t *testing.T) {
+	stack := NewStack(1)
+	assert.True(t, stack.Cards[0].Points == 1)
+	stack.Shuffle()
+	assert.True(t, stack.Cards[0].Points != 1, "may fail sometimes for it's random")
 }
