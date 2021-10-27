@@ -1,8 +1,7 @@
 package pkg
 
 type Deck struct {
-	Cards      []*Card
-	CardsCount int
+	Cards []*Card
 }
 
 const ONE_DECK_CARDS_NUM = 54
@@ -29,7 +28,6 @@ func NewDeck() *Deck {
 		}
 	}
 	return &Deck{
-		Cards:      cards,
-		CardsCount: ONE_DECK_CARDS_NUM,
+		Cards: cards,
 	}
 }
