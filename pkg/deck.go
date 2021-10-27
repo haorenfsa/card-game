@@ -12,7 +12,7 @@ func NewDeck() *Deck {
 	index := 0
 	for _, suit := range ALL_SUITS {
 		if suit != CardSuitJoker {
-			for points := 1; points < ONE_SUIT_CARDS_NUM; points++ {
+			for points := 1; points <= ONE_SUIT_CARDS_NUM; points++ {
 				card := NewCard(suit, points)
 				cards[index] = card
 				index++

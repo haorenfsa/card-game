@@ -11,7 +11,8 @@ func TestNewCard(t *testing.T) {
 	NewCard(CardSuitSpade, 13)
 	NewCard(CardSuitDiamond, 1)
 	NewCard(CardSuitDiamond, 13)
-	NewCard(CardSuitJoker, 1)
+	NewCard(CardSuitJoker, 14)
+	NewCard(CardSuitJoker, 15)
 	NewCard(CardSuitDiamond, 13)
 }
 

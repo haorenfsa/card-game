@@ -1,21 +1,34 @@
 package pkg
 
 import (
+	"log"
 	"math/rand"
 	"sort"
 	"time"
 )
 
+func init() {
+	// for stack shuffle
+	rand.Seed(time.Now().Unix())
+}
+
 type StackInterface interface {
-	// shuffle the stack of cards into random order
+	// Shuffle the stack of cards into random order
 	Shuffle()
+	// Draw a card from the stack top
+	Draw() *Card
+	// Add a card to stack top
+	Add(*Card)
+	// CardsNum of stack
+	CardsNum() int
+	// GetCardByIndex return card if exists, nil if not, panic if index < 0
+	GetCardByIndex(int) *Card
 }
 
 // Stack card stack
 // implements sort.Interface for shuffle
 type Stack struct {
-	Cards    []*Card
-	CardsNum int
+	Cards []*Card
 }
 
 func NewShuffledStack(deckNum int) *Stack {
@@ -41,13 +54,37 @@ func NewStack(deckNum int) *Stack {
 	}
 }
 
-func init() {
-	// for shuffle
-	rand.Seed(time.Now().Unix())
+func (s *Stack) Add(card *Card) {
+	s.Cards = append(s.Cards, card)
 }
 
 func (s *Stack) Shuffle() {
 	sort.Sort(s)
+}
+
+func (s *Stack) Draw() *Card {
+	if len(s.Cards) < 1 {
+		panic("no cards")
+	}
+	ret := s.Cards[0]
+	s.Cards = s.Cards[1:]
+	return ret
+}
+
+func (s *Stack) CardsNum() int {
+	return len(s.Cards)
+}
+
+func (s *Stack) GetCardByIndex(i int) *Card {
+	if i < 0 {
+		panic("bad card index")
+	}
+	log.Print(s.CardsNum())
+	if i <= s.CardsNum()-1 {
+		log.Print(s.Cards[i])
+		return s.Cards[i]
+	}
+	return nil
 }
 
 func (s *Stack) Len() int {
