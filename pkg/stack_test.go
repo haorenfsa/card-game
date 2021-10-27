@@ -1,6 +1,7 @@
 package pkg
 
 import (
+	"math/rand"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -31,8 +32,15 @@ func TestNewStack2Deck(t *testing.T) {
 }
 
 func TestStackShuffle(t *testing.T) {
+	rand.Seed(2)
 	stack := NewStack(1)
 	assert.True(t, stack.Cards[0].Points == 1)
 	stack.Shuffle()
-	assert.True(t, stack.Cards[0].Points != 1, "may fail sometimes for it's random")
+	assert.True(t, stack.Cards[0].Points != 1)
+}
+
+func TestNewShuffledStack(t *testing.T) {
+	rand.Seed(2)
+	stack := NewShuffledStack(1)
+	assert.True(t, stack.Cards[0].Points != 1)
 }

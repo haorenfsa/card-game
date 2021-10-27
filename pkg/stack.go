@@ -18,6 +18,12 @@ type Stack struct {
 	CardsNum int
 }
 
+func NewShuffledStack(deckNum int) *Stack {
+	ret := NewStack(deckNum)
+	ret.Shuffle()
+	return ret
+}
+
 func NewStack(deckNum int) *Stack {
 	if deckNum < 0 {
 		panic("bad deckNum")
@@ -37,7 +43,6 @@ func NewStack(deckNum int) *Stack {
 
 func init() {
 	// for shuffle
-	// rand.NewSource()
 	rand.Seed(time.Now().Unix())
 }
 
